@@ -1,0 +1,17 @@
+.example-card {
+    max-width: 400px;
+    margin: auto;
+    align-items: center;
+}
+
+.card {
+    margin: auto;
+    
+}
+
+button {
+    align-self: auto;
+}
+.mat-form-field {
+    display: block;
+}

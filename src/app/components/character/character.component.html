@@ -1,0 +1,29 @@
+<div class="card">
+    <mat-card class="example-card">
+        <button mat-raised-button="primary" (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <p>
+    </p>
+    <h2>
+        <mat-label>Create Character</mat-label>
+    </h2>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Name</mat-label>
+          <input ngModel required matInput #charName>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Class</mat-label>
+          <input ngModel required matInput #charClass>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Race</mat-label>
+          <input ngModel required matInput #charRace>
+        </mat-form-field>
+    </p>
+    <button mat-raised-button="primary" (click)="addCharacter(charName.value, charClass.value, charRace.value)"><mat-icon>send</mat-icon></button>
+    </mat-card>
+</div>
