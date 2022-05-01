@@ -1,50 +1,50 @@
 <div class="card">
-<mat-card class="example-card" *ngIf="character">
-<button mat-raised-button="primary" (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon></button>
-<p></p>
-<h2>
-    <mat-label>Edit Character</mat-label>
-</h2>
-<h5>
-    <mat-label>Id: {{character.id}}</mat-label>
-</h5>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="character.name">
-    </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Class</mat-label>
-      <input matInput [(ngModel)]="character.class">
-    </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Race</mat-label>
-      <input matInput [(ngModel)]="character.race">
-    </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Level</mat-label>
-      <input matInput [(ngModel)]="character.level">
-    </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Location</mat-label>
-      <input matInput [(ngModel)]="character.location">
-    </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="standard">
-      <mat-label>Money</mat-label>
-      <input matInput [(ngModel)]="character.money">
-    </mat-form-field>
-</p>
+  <mat-card class="example-card" *ngIf="character">
+    <button mat-raised-button="primary" (click)="goBack()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <p></p>
+    <h2>
+        <mat-label>Edit Character</mat-label>
+    </h2>
+    <h5>
+        <mat-label>Id: {{character.id}}</mat-label>
+    </h5>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="character.name">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Class</mat-label>
+          <input matInput [(ngModel)]="character.class">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Race</mat-label>
+          <input matInput [(ngModel)]="character.race">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Level</mat-label>
+          <input matInput [(ngModel)]="character.level">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Location</mat-label>
+          <input matInput [(ngModel)]="character.location">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Money</mat-label>
+          <input matInput [(ngModel)]="character.money">
+        </mat-form-field>
+    </p>
 
-<button mat-raised-button="primary" (click)="saveCharacter(character.id)"><mat-icon>save</mat-icon></button>
-</mat-card>
+    <button mat-raised-button="primary" (click)="saveCharacter(character.id)"><mat-icon>save</mat-icon></button>
+  </mat-card>
 </div>

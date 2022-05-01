@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Character } from '../../character';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -22,19 +22,10 @@ export class CharacterDetailsComponent implements OnInit {
       this.characterService.getCharacter(id).subscribe((response) => 
       {
         this.character = response;
-        /*
-        Object.entries(this.character).map((data) => 
-        {
-          console.log(data[1]);
-          console.log(data[0]);
-        });
-        */
       });
      }
 
-  ngOnInit(): void {
-    //this.getCharacter();
-  }
+  ngOnInit(): void { }
 
   getCharacter(): void {
     const id = Number(this.route
@@ -43,8 +34,7 @@ export class CharacterDetailsComponent implements OnInit {
     this.characterService.getCharacter(id).subscribe((response) => 
     {
       this.character = response;
-
-    });
+    }).unsubscribe();
   }
 
   goBack(): void {
@@ -55,7 +45,7 @@ export class CharacterDetailsComponent implements OnInit {
     if (this.character) {
       this.characterService.updateCharacter(id, this.character).subscribe(
         (e) => {if (e == null) this.goBack()}
-      )
+      );
     }
   }
 }

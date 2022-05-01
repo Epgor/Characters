@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
 import { Character } from '../../character'
 import { CharacterResponse } from 'src/app/charactersResponse';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCoffee, faPenToSquare, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import { debounceTime} from 'rxjs/operators';
-import { Subject } from 'rxjs/internal/Subject';
-
 
 @Component({
   selector: 'app-characters',
@@ -14,12 +12,11 @@ import { Subject } from 'rxjs/internal/Subject';
   styleUrls: ['./characters.component.css']
 })
 export class CharactersComponent implements OnInit {
-
-
-
+  //icons
   faCoffee = faCoffee;
   faEdit = faPenToSquare;
   faDelete = faTrashCan;
+  //variables
   characters: Character[] = [];
   response: CharacterResponse[] = [];
   displayedColumns: string[] = [
@@ -35,34 +32,15 @@ export class CharactersComponent implements OnInit {
   length = 0;
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 15];
-
-  
     //search
   searchKey = '';
- // private _getCharacters = this.characterService.getCharacters(this.page, this.pageSize, this.searchKey);
-  private destroy$ = new Subject<void>();
-  constructor(private characterService: CharacterService) {  
-  
-  }
+
+  constructor(private characterService: CharacterService) { }
 
   ngOnInit(): void {
-
-     /** 
-    this._getCharacters.pipe(
-      //debounceTime(500),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    )
-    .subscribe((response) => 
-    {
-      this.characters = response.items;
-      this.dataSource = new MatTableDataSource(this.characters);
-      this.length = response.totalItemsCount;
-      console.warn(response);
-    });
-    */
    this.getCharacters();
   }
+
   getCharacters(){  
     this.characterService
     .getCharacters(this.page, this.pageSize, this.searchKey)
@@ -74,20 +52,17 @@ export class CharactersComponent implements OnInit {
       this.characters = response.items;
       this.dataSource = new MatTableDataSource(this.characters);
       this.length = response.totalItemsCount;
-      //console.warn(response);
     });
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchKey = filterValue.trim().toLowerCase();
     this.getCharacters();
   }
-
-
   
   getPage(event:any)
   {
-    //console.warn(event);
     this.page=event.pageIndex+1;
     this.pageSize=event.pageSize;
     this.getCharacters();
@@ -105,10 +80,5 @@ export class CharactersComponent implements OnInit {
     this.characters = this.characters.filter(h => h.id !== id);
     this.dataSource = new MatTableDataSource(this.characters);
   }
-/**
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-  */
+
 }

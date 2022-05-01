@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, Subject, throwError, of, tap } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Character } from '../character';
 import { CharacterResponse } from '../charactersResponse';
 
@@ -31,12 +31,11 @@ export class CharacterService {
 
   getCharacters(pageNum: number, pageSiz: number, searchKey: string): Observable<CharacterResponse>{
     let url = `https://localhost:7086/api/character?SearchPhrase=${searchKey}&PageNumber=${pageNum}&PageSize=${pageSiz}`;
-    //https://localhost:7086/api/character?SearchPhrase=Orc&PageNumber=1&PageSize=10&SortBy=Name&SortDirection=0
     const characters = this.http.get<CharacterResponse>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     )
-
+    
     return characters;
   }
 
