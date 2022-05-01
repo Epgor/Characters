@@ -15,18 +15,16 @@ const httpOptions ={
 export class CharacterService {
 
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('Error:', error.error);
-    } else {
-      var logResp = error.name + " : " + error.status +"\n";
+    if (error.status !== 0) {
+      
+      let responseErrors: string[] 
+      = Object.entries(error.error.errors)
+      .map((x: any) => {return(`${x[1][0]}\n`)});
 
-      var arr = new Array(error.error.errors);
-      for (let key in arr[0]){
-        logResp +="Error: " + key +"\n";
-      }
+      let logResp = `${error.name} : ${error.status}\n ${responseErrors}`;
       window.alert(logResp);
     }
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    return throwError(() => new Error('Something bad happened; please try again later.'))
   }
 
   constructor(private http: HttpClient) { }
