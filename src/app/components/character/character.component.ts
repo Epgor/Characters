@@ -26,11 +26,9 @@ export class CharacterComponent implements OnInit {
   {
     this.characterService.createCharacter(_name.trim(), _class.trim(), _race.trim()).subscribe(
       (e) => {if (e == null) this.goBack();
-      else console.warn(e);}
+      }
     );
   }
 
-  ngOnDestroy(){
-  }
 
 }

@@ -13,21 +13,21 @@ const httpOptions ={
   providedIn: 'root'
 })
 export class CharacterService {
+  constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
+
     if (error.status !== 0) {
       
-      let responseErrors: string[] 
-      = Object.entries(error.error.errors)
+      let responseErrors = Object.entries(error.error.errors)
       .map((x: any) => {return(`${x[1][0]}\n`)});
 
       let logResp = `${error.name} : ${error.status}\n ${responseErrors}`;
       window.alert(logResp);
     }
-    return throwError(() => new Error('Something bad happened; please try again later.'))
+    
+    return throwError(() => new Error(error.message)  )
   }
-
-  constructor(private http: HttpClient) { }
 
   getCharacters(pageNum: number, pageSiz: number, searchKey: string): Observable<CharacterResponse>{
     let url = `https://localhost:7086/api/character?SearchPhrase=${searchKey}&PageNumber=${pageNum}&PageSize=${pageSiz}`;
