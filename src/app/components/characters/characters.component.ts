@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
 import { Character } from '../../character'
 import { CharacterResponse } from 'src/app/charactersResponse';
 import { MatTableDataSource } from '@angular/material/table';
 import { faCoffee, faPenToSquare, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import { debounceTime} from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.css']
 })
-export class CharactersComponent implements OnInit {
+export class CharactersComponent implements OnInit, OnDestroy {
+  //subs
+  subscriptionDelete!: Subscription;
+  subscriptionGet!: Subscription;
   //icons
   faCoffee = faCoffee;
   faEdit = faPenToSquare;
@@ -38,11 +42,11 @@ export class CharactersComponent implements OnInit {
   constructor(private characterService: CharacterService) { }
 
   ngOnInit(): void {
-   this.getCharacters();
+    this.getCharacters();
   }
 
   getCharacters(){  
-    this.characterService
+    this.subscriptionGet = this.characterService
     .getCharacters(this.page, this.pageSize, this.searchKey)
     .pipe(
       debounceTime(500)
@@ -76,9 +80,15 @@ export class CharactersComponent implements OnInit {
 
   delete(id: number): void
   {
-    this.characterService.deleteCharacter(id).subscribe();
+    this.subscriptionDelete = this.characterService.deleteCharacter(id).subscribe();
     this.characters = this.characters.filter(h => h.id !== id);
     this.dataSource = new MatTableDataSource(this.characters);
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptionDelete)
+      this.subscriptionDelete.unsubscribe();
+    if (this.subscriptionGet)
+      this.subscriptionGet.unsubscribe();
+    }
 }

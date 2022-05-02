@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Character } from '../../character';
 import { Location } from '@angular/common';
 import { CharacterService } from 'src/app/services/character.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
   styleUrls: ['./character.component.css']
 })
-export class CharacterComponent implements OnInit {
-
+export class CharacterComponent implements OnInit, OnDestroy {
+  subscription!: Subscription;
   @Input()
   character!: Character;
   constructor(   
@@ -24,11 +25,14 @@ export class CharacterComponent implements OnInit {
 
   addCharacter(_name: string, _class: string, _race: string)
   {
-    this.characterService.createCharacter(_name.trim(), _class.trim(), _race.trim()).subscribe(
+    this.subscription = this.characterService.createCharacter(_name.trim(), _class.trim(), _race.trim()).subscribe(
       (e) => {if (e == null) this.goBack();
       }
     );
   }
-
+  ngOnDestroy(): void {
+    if (this.subscription)
+      this.subscription.unsubscribe();
+  }
 
 }
